@@ -3,5 +3,6 @@
 *.sav
 *.Rhistory
 *.tex
+*.bib
 *.do
 *.log
