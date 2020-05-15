@@ -1,6 +1,9 @@
-*.pdf
-*.dta
-*.log
-*.do
-*.tex
+docs/
+figs/
+tabs/
+dat/
+refs/
 *.Rhistory
+*.dta
+*.sav
+*.pdf
