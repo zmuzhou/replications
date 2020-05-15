@@ -1,7 +1,0 @@
-AVP Response rates.csv (text/csv) 2850 bytes.
-gun_nodes.csv (text/csv) 274 bytes.
-gun_values_psrm.csv (text/csv) 1093 bytes.
-Log File that Produces Table Figures.log (text/plain) 96008 bytes.
-PSRM_Replication_Data.dta (application/x-stata) 3990619 bytes.
-PSRM_Replication_Figures.R (type/x-r-syntax) 6446 bytes.
-PSRM_Replication_File.do (application/x-stata-syntax) 8686 bytes.

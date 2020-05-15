@@ -14,12 +14,12 @@ invisible(lapply(c("haven", # import data
                    "texreg"), # export reg table
                  library, character.only = T, warn.conflict = F)
 )
-setwd("~/Box/repository/replication/hong_yang_2020_bjps/")
+setwd("~/Box/myBox/GitHub/replication/hong_yang_2020_bjps/")
 
 # load and process data ----
 download.file("https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/SIREAP/HLWLV6",
-              "data.dta") # download data for replication from Harvard Dataverse
-dat <- read_dta("data.dta") %>% # import dta file 
+              "hong_yang_2020_bjps.dta") # download data for replication from Harvard Dataverse
+dat <- read_dta("hong_yang_2020_bjps.dta") %>% # import dta file 
   zap_label() %>% # delete labels
   dplyr::rename(year = Year, id = ID, p_uighur = p_Uighur)
 dat_main <- dat %>% group_by(id) %>% # group obs by county id for lag operation

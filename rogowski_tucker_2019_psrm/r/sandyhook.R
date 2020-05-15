@@ -2,7 +2,7 @@ rm(list = ls())
 
 # load data ----
 # cross-sectional
-dat_cs <- read_dta("dataverse_files/PSRM_Replication_Data.dta") %>% 
+dat_cs <- read_dta("dat/rogowski_tucker_2019_psrm.dta") %>% 
   mutate(IGUNS13_ordinal = case_when(IGUNS13 == 5 ~ 1,
                                      IGUNS13 == 4 ~ 2,
                                      IGUNS13 == 3 ~ 3,

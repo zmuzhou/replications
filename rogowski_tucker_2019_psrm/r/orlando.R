@@ -1,7 +1,7 @@
 rm(list = setdiff(ls(), "prob"))
 
 # load data ----
-dat_full <- read_spss("taps2016.sav") %>%
+dat_full <- read_spss("dat/taps2016.sav") %>%
   mutate(
     finishdate = as.Date(.$tm_finishS55 / 86400, origin = "1582-10-14"),
     postevent = case_when(
