@@ -13,7 +13,7 @@ invisible(lapply(c("haven", # import data
                    "texreg"), # export reg table
                  library, character.only = T, warn.conflict = F)
 )
-setwd("~/Box/repository/replication/hong_yang_2020_bjps/")
+setwd("~/Box/myBox/Github/replication/hong_yang_2020_bjps/")
 
 source("r/analysis.R")
 source("r/report.R")
