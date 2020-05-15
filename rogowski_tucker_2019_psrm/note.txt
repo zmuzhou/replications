@@ -1,0 +1,6 @@
+Use another measure of dependent variable.
+Missing values.
+Include more covariates. The insignificant results might be driven by the large unexplained variation.
+See the effects of education and media exposure.
+Introduce conditional effect.
+Add quadratic time term.
