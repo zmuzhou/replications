@@ -56,6 +56,14 @@ atab6 <-
       data = dat_full,
       family = binomial (link = "logit"))
 
+# tab3 ----
+tab3 <- NULL
+for (i in 1:15) {
+  tab3[[i]] <- dat_full %>% filter_(group[i]) %>% {table(.$guncontrol, .$postevent)} %>% 
+    prop.table(2) %>% round(digits = 5) %>% as.matrix() %>% {.[2,]}
+  rm(i)
+}
+
 # fig2 ----
 est_fig2 <- function(group) {
   dat_full %>% filter_(group) %>%

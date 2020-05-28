@@ -22,6 +22,22 @@ for (i in 1:15) {
     dplyr::select(postevent) %>% nrow
   rm(i)
 }
+tab3 %>% unlist %>% matrix(nrow = 15, ncol = 2, byrow = T,
+                            dimnames = list(name,
+                                            c("Pre-shooting", "Post-shooting"))) %>%
+  {100 * .} %>%
+  xtable(align = "lcc",
+         digits = c(0, 3, 3),
+         caption = "Percentage of Gun Control Supporters, before and after the 2016 Orlando Shooting",
+         label = "tab3"
+         ) %>%
+  print.xtable(
+    type = "latex",
+    "tabs/tab3.tex",
+    table.placement = "!htbp",
+    caption.placement = "top",
+    booktabs = T
+  )
 prob(fig2, obs_full)
 ggsave("figs/fig2.pdf", width = 11, height = 9)
 prob(fig3, obs_narrow)
