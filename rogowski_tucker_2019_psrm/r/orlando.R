@@ -106,3 +106,34 @@ est_fig3 <- function(group) {
     )
 }
 fig3 <- map(group, est_fig3)
+
+# covaraite balance ----
+lm(female ~ postevent, data = dat_full) %>% summary()
+lm(parent ~ postevent, data = dat_full) %>% summary()
+lm(polinterest ~ postevent, data = dat_full) %>% summary()
+lm(newseveryday ~ postevent, data = dat_full) %>% summary()
+lm(liberal ~ postevent, data = dat_full) %>% summary()
+lm(obamaapprove ~ postevent, data = dat_full) %>% summary()
+lm(knowledge ~ postevent, data = dat_full) %>% summary()
+
+# interaction term approach ----
+est_interaction <- function(formula) {
+  dat_full %>%
+    svyglm(
+      formula,
+      design = svydesign(
+        ids = ~ 1,
+        data = .,
+        weights = .$jun2016wt1S55
+      ),
+      data = .,
+      family = binomial (link = "logit")
+    )
+}
+est_interaction(guncontrol ~ postevent + female + postevent * female) %>% summary
+est_interaction(guncontrol ~ postevent + parent + postevent * parent) %>% summary
+est_interaction(guncontrol ~ postevent + polinterest + postevent * polinterest) %>% summary
+est_interaction(guncontrol ~ postevent + newseveryday + postevent * newseveryday) %>% summary
+est_interaction(guncontrol ~ postevent + liberal + postevent * liberal) %>% summary
+est_interaction(guncontrol ~ postevent + obamaapprove + postevent * obamaapprove) %>% summary
+est_interaction(guncontrol ~ postevent + knowledge + postevent * knowledge) %>% summary
