@@ -138,15 +138,3 @@ glm(IGUNS13_binary ~ postevent + educsp + postevent * educsp,
 edu_ologit <- dat_cs %>% filter(educsp != -1) %>%
   polr(IGUNS13_ordinal ~ postevent + educsp + postevent * educsp, 
               data = ., Hess = T, method = "logistic")
-
-# covariate balance ----
-lm(democrat ~ postevent, data = dat_cs) %>% summary()
-lm(republican ~ postevent, data = dat_cs) %>% summary()
-lm(indep ~ postevent, data = dat_cs) %>% summary()
-lm(liberal ~ postevent, data = dat_cs) %>% summary()
-lm(moderate ~ postevent, data = dat_cs) %>% summary()
-lm(conservative ~ postevent, data = dat_cs) %>% summary()
-lm(female ~ postevent, data = dat_cs) %>% summary()
-lm(parent ~ postevent, data = dat_cs) %>% summary()
-lm(nra ~ postevent, data = dat_cs) %>% summary()
-lm(proximity ~ postevent, data = dat_cs) %>% summary()
