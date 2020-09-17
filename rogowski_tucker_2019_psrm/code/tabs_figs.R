@@ -1,8 +1,10 @@
 # sample size ----
 obs_cs <- rep(0, 15)
 for (i in 1:15) {
-  obs_cs[i] <- dat_cs %>% filter_(group[i]) %>%
-    dplyr::select(postevent) %>% nrow
+  obs_cs[i] <- dat_cs %>%
+    filter_(group[i]) %>%
+    dplyr::select(postevent) %>%
+    nrow()
   rm(i)
 }
 
@@ -25,10 +27,15 @@ name <- c(
   "Proximity: No"
 )
 
-# atab14 ----
+# atab 14 ----
 atab14 <- function(input, row, caption, label, file, foonote) {
-  input %>% map(broom::tidy) %>% map(dplyr::select, estimate, std.error, statistic, p.value, df) %>%
-    map(mutate, obs = df + row) %>% map(dplyr::select,-df) %>% map(slice, row) %>% unlist %>%
+  input %>%
+    map(broom::tidy) %>%
+    map(dplyr::select, estimate, std.error, statistic, p.value, df) %>%
+    map(mutate, obs = df + row) %>%
+    map(dplyr::select, -df) %>%
+    map(slice, row) %>%
+    unlist() %>%
     matrix(
       nrow = 15,
       ncol = 5,
@@ -54,8 +61,10 @@ atab14 <- function(input, row, caption, label, file, foonote) {
       type = "latex",
       file = file,
       table.placement = "!htbp",
-      add.to.row = list(pos = list(15),
-                        command = foonote),
+      add.to.row = list(
+        pos = list(15),
+        command = foonote
+      ),
       hline.after = c(-1, 0),
       sanitize.text.function = function(x) {
         x
@@ -116,7 +125,6 @@ atab14(
     "{\\footnotesize Standard errors are heteroskedasticity-robust.}"
   )
 )
-
 atab14(
   atab4,
   1,
@@ -135,18 +143,21 @@ atab14(
   )
 )
 
-# atab5 ----
-atab5 <- list(atab5_1, atab5_2, atab5_3) %>% map(broom::tidy) %>%
+# atab 5 ----
+atab5 <- list(atab5_1, atab5_2, atab5_3) %>%
+  map(broom::tidy) %>%
   map(dplyr::select, estimate, std.error, statistic, p.value, df)
 for (i in 1:3) {
-  atab5[[i]] %<>% {
-    .[i + 2, ]
-  } %>%
+  atab5[[i]] %<>%
+    {
+      .[i + 2, ]
+    } %>%
     mutate(obs = df + 2) %>%
     dplyr::select(-df)
   rm(i)
 }
-atab5 %>% unlist %>%
+atab5 %>%
+  unlist() %>%
   matrix(
     nrow = 3,
     ncol = 5,
@@ -203,8 +214,10 @@ prob <- function(input, obs) {
   for (i in 1:15) {
     gglist[[i]] <- gglist[[i]] + labs(
       title = name[i],
-      subtitle = paste("N =",
-                       obs[i]),
+      subtitle = paste(
+        "N =",
+        obs[i]
+      ),
       x = "",
       y = ""
     ) +
@@ -215,21 +228,24 @@ prob <- function(input, obs) {
         axis.text = element_text(family = "Times"),
       )
   }
-  gglist %>% map(ggplotGrob) %>%
+  gglist %>%
+    map(ggplotGrob) %>%
     cowplot::plot_grid(plotlist = .)
 }
 prob(logit, obs_cs)
 ggsave("figs/fig1.pdf", width = 12, height = 10)
 
-# tab1 ----
-ologit %<>% map(broom::tidy, exponentiate = T) %>% map(slice, 1) %>%
+# tab 1 ----
+ologit %<>% map(broom::tidy, exponentiate = T) %>%
+  map(slice, 1) %>%
   map(dplyr::select, estimate, std.error, statistic) %>%
   map(mutate, pvalue = pnorm(abs(statistic), lower.tail = F) * 2)
 for (i in 1:15) {
   ologit[[i]] %<>% mutate(obs = obs_cs[i])
   rm(i)
 }
-ologit %>% unlist %>%
+ologit %>%
+  unlist() %>%
   matrix(
     nrow = 15,
     ncol = 5,
@@ -275,7 +291,7 @@ ologit %>% unlist %>%
     booktabs = T
   )
 
-# tab2 ----
+# tab 2 ----
 texreg(
   list(edu_logit, edu_ologit),
   file = "tabs/tab2.tex",

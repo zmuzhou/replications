@@ -6,3 +6,5 @@
 *.bib
 *.do
 *.log
+Makefile
+!output.pdf
